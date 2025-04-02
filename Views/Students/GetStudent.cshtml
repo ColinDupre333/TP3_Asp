@@ -1,0 +1,11 @@
+﻿@model JsonDemo.Models.Student
+
+<details open>
+    <summary><i class="infoIcon fa-solid fa-graduation-cap"></i> <b> @Model.FirstName @Model.LastName</b> </summary>
+    <br />
+    <h6><i class="infoIcon fa fa-barcode"></i> @Model.Code</h6>
+    <h6><i class="infoIcon fa fa-phone"></i> @Model.Phone</h6>
+    <h6><i class="infoIcon fa fa-paper-plane"></i> <a href="mailto:@Model.Email">@Model.Email</a> </h6>
+
+    <h6><i class="infoIcon fa fa-cake-candles"></i> @Model.BirthDate.ToFrenchDateString()</h6>
+</details>

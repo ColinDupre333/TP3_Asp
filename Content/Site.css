@@ -205,7 +205,7 @@ divx, imgx {
 }
 
 details {
-    /* source : https://nerdy.dev/open-and-close-transitions-for-the-details-element*/
+    /* source : https://nerdy.dev/open-and-close-transitions-for-the-details-element */
 
     @media (prefers-reduced-motion: no-preference) {
         interpolate-size: allow-keywords;

@@ -5,8 +5,6 @@
     bool showCoursesSearch = Session["ShowCoursesSearch"] != null ? (bool)Session["ShowCoursesSearch"] && controller == "courses" : false;
     bool showTeachersSearch = Session["ShowTeachersSearch"] != null ? (bool)Session["ShowTeachersSearch"] && controller == "teachers" : false;
     bool showSearch = (action == "index") && (showStudentsSearch || showCoursesSearch || showTeachersSearch);
-    var yearsList = Session["StudentsYearsList"] != null ? ((List<int>)Session["StudentsYearsList"]).OrderByDescending(i => i) : null;
-    var selectedStudentYear = Session["SelectedStudentYear"] != null ? (int)Session["SelectedStudentYear"] : JsonDemo.Models.NextSession.CurrentDate.Year;
 }
 @if (showSearch)
 {
@@ -19,11 +17,7 @@
                 <label for="searchYear">Année </label>
                 <select name="SelectedStudentYear" id="SelectedStudentYear" class="form-control" multiselect>
                     <option value="0">Toutes</option>
-                    @foreach (int year in yearsList)
-                    {
-                        string selected = year == selectedStudentYear ? "selected" : "";
-                        <option value="@year" @selected>@year</option>
-                    }
+                    
                 </select>
             </div>
         }

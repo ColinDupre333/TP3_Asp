@@ -130,14 +130,9 @@
     <Content Include="App_Assets\Users\9f51e02d-4089-4d33-aa3e-62cb925ff185.jpeg" />
     <Content Include="App_Assets\Users\b92612bf-1e79-40df-81c8-9dcd31a129f7.jpeg" />
     <Content Include="App_Assets\Users\no_avatar.png" />
-    <Content Include="App_Data\Allocations.json" />
-    <Content Include="App_Data\Courses.json" />
     <Content Include="App_Data\iso-3166.txt" />
     <Content Include="App_Data\Logins.json" />
-    <Content Include="App_Data\Registrations.json" />
     <Content Include="App_Data\RenewPasswordCommands.json" />
-    <Content Include="App_Data\Students.json" />
-    <Content Include="App_Data\Teachers.json" />
     <Content Include="App_Data\UnverifiedEmails.json" />
     <Content Include="App_Data\Users.json" />
     <Content Include="Content\Accounts.css" />

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PhotosManager.Models
+namespace JsonDemo.Models
 {
     public class Photo
     {
@@ -22,6 +22,7 @@ namespace PhotosManager.Models
         public int Likes { get; set; }              // compte des likes
         [Asset(PhotosFolder)]
         public string Image { get; set; }           // Url relatif de l'image
+
 
         public Photo()
         {

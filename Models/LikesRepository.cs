@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace PhotosManager.Models
+namespace JsonDemo.Models
 {
     public class LikesRepository : Repository<Like>
     {

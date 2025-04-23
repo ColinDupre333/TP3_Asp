@@ -1,5 +1,4 @@
 ﻿using JsonDemo.Models;
-using PhotosManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Razor.Tokenizer.Symbols;
 using static JsonDemo.Controllers.AccessControl;
 
-namespace PhotosManager.Controllers
+namespace JsonDemo.Controllers
 {
     [UserAccess]
     public class PhotosController : Controller

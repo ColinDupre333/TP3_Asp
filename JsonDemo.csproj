@@ -111,8 +111,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\LikesRepository.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginsRepository.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotosRepository.cs" />
     <Compile Include="WebServices\Countries.cs" />
     <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Loading_icon.gif" />
@@ -235,6 +240,10 @@
     <Content Include="Views\Accounts\RenewPasswordCommand.cshtml" />
     <Content Include="Views\Accounts\LoginsJournal.cshtml" />
     <Content Include="Views\Accounts\GetLoginsList.cshtml" />
+    <Content Include="Views\Photos\Create.cshtml" />
+    <Content Include="Views\Photos\Details.cshtml" />
+    <Content Include="Views\Photos\Edit.cshtml" />
+    <Content Include="Views\Photos\List.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

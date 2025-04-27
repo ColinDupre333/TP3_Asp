@@ -10,11 +10,11 @@ namespace JsonDemo.Models
 {
     public class Photo
     {
-        const string PhotosFolder = @"/App_Assets/Photos/";
-        const string DefaultPhoto = @"No_Image.png";
+        const string Photos_Folder = @"/App_Assets/Photos/";
+        const string Default_Photo = @"No_Image.png";
 
         [JsonIgnore]
-        public static string DefaultImage { get { return PhotosFolder + DefaultPhoto; } }
+        public static string DefaultImage { get { return Photos_Folder + Default_Photo; } }
 
         public int Id { get; set; }
         public int OwnerId { get; set; }            // Id du propriétaire de la photo
@@ -37,7 +37,7 @@ namespace JsonDemo.Models
 
         // 
         // compte des likes
-        [ImageAsset(PhotosFolder, DefaultPhoto)]
+        [ImageAsset(Photos_Folder, Default_Photo)]
         public string Image { get; set; }         // Url relatif de l'image
 
         [JsonIgnore]
@@ -85,6 +85,7 @@ namespace JsonDemo.Models
             Id = 0;
             CreationDate = DateTime.Now;
             Shared = false;
+            Image = DefaultImage;
         }
         [JsonIgnore]
         public User Owner

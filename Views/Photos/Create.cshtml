@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { @id = "createForm" }))
 {
     @Html.AntiForgeryToken()
-    <input type="hidden" name="_RequestVerificationToken" value=@ownerId />
+    <input type="hidden" name="OwnerId" value=@ownerId />
 
     <div class="photo-form">
         <fieldset>

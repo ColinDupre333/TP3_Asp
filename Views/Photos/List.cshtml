@@ -18,7 +18,7 @@
                 <a href="/Photos/Details/@photo.Id" title="Afficher les détails de @photo.Title">
                     <div class="photoImage" style="background-image:url('@photo.Image')">
                         <div class="UserSmallAvatar transparentBackground" style="background-image: url('@photo.Owner.Avatar')" title="@photo.Owner.Name"></div>
-                        @if (photo.Shared)
+                        @if (photo.Shared || connectedUser.IsAdmin)
                         {
                             <div class="UserSmallAvatar transparentBackground" style="background-image:url('/Content/UI-Images/shared.png')" title="partagée"></div>
                         }

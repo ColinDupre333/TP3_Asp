@@ -76,6 +76,8 @@ namespace JsonDemo.Controllers
             }
             return View(list);
         }
+
+        [HttpGet]
         public ActionResult Create()
         {
             return View(new Photo());

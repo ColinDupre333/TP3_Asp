@@ -28,34 +28,9 @@
             </div>
         </fieldset>
 
-        <fieldset class="">
+        <fieldset>
             <legend>Photo</legend>
-            <div class="imageUploader"
-                 controlid="Image"
-                 imagesrc="@(!string.IsNullOrEmpty(Model.Image) ? Model.Image : "/App_Assets/Photos/No_Image.png")"
-                 title="Cliquez glisser une photo"
-                 style="display: flex; flex-direction: column; align-items: center; border-radius: 6px; padding: 6px 6px 3px 0px;">
-
-                <img id="Image_UploadedImage"
-                     tabindex="0"
-                     class="UploadedImage"
-                     style="width:100%"
-                     src="@(!string.IsNullOrEmpty(Model.Image) ? Model.Image : "/App_Assets/Photos/No_Image.png")"
-                     title="Cliquez glisser une photo"
-                     waitingimage="/App_Assets/Loading_icon.gif" />
-
-                <input id="Image_ImageUploader"
-                       type="file"
-                       style="visibility:hidden; height:0px; width:0px; border:none; margin:0px !important"
-                       accept="image/jpeg,image/jpg,image/gif,image/png,image/bmp,image/webp,image/avif,image/svg" />
-
-                <input style="visibility: hidden; height: 0px; z-index: -1; width: 0px; margin: 0px; position: relative; left: 4px; top: -6px;"
-                       class="fileUploadedSizeRule"
-                       id="Image"
-                       name="Image"
-                       waitingimage="/App_Assets/Loading_icon.gif"
-                       value="@(!string.IsNullOrEmpty(Model.Image) ? Model.Image : "/App_Assets/Photos/No_Image.png")" />
-            </div>
+            @Helper.ImageUploader("Image", Model.Image, "Cliquez glisser une photo")
         </fieldset>
     </div>
 }

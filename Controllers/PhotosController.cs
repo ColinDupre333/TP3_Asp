@@ -82,10 +82,11 @@ namespace JsonDemo.Controllers
         {
             return View(new Photo());
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public ActionResult Create(Photo photo)
-        {
+        { 
             DB.Photos.Add(photo);
             return RedirectToAction("List");
         }

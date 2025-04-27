@@ -5,7 +5,7 @@
 }
 
 @using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { @id = "createForm", enctype = "multipart/form-data" }))
-{ 
+{
     @Html.AntiForgeryToken()
     <input type="hidden" name="OwnerId" value=@ownerId />
 
@@ -63,6 +63,7 @@
 
 @section Scripts
 {
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const fileInput = document.getElementById("Image_FileInput");

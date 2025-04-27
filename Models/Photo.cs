@@ -19,10 +19,10 @@ namespace JsonDemo.Models
         public int Id { get; set; }
         public int OwnerId { get; set; }            // Id du propriétaire de la photo
 
-        [Display(Name = "Titre"), Required(ErrorMessage = "Obligatoire")]
+        [Display(Name = "Titre"), Required(ErrorMessage = "Le Titre est obligatoire")]
         public string Title { get; set; }           // Titre de la photo
 
-        [Display(Name = "Description"), Required(ErrorMessage = "Obligatoire")]
+        [Display(Name = "Description"), Required(ErrorMessage = "La description est obligatoire")]
         public string Description { get; set; }     // Description de la photo
         public DateTime CreationDate { get; set; }  // Date de création
         public bool Shared { get; set; }  // Indicateur de partage ("true" ou "false")

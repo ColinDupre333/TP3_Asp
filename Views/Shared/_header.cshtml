@@ -5,7 +5,6 @@
     var connectedUser = connected ? (JsonDemo.Models.User)Session["ConnectedUser"] : null;
     bool admin = connected ? connectedUser.Admin : false;
     string dataModel = "";
-    int ownerId = ((JsonDemo.Models.User)Session["ConnectedUser"]).Id;
 }
 <div id="header">
     <a href="~/Photos/List"><img src="/favicon.ico" class="appLogo" alt="" title="Régistraire"></a>
@@ -65,7 +64,7 @@
         case "details":
             <div class="actionTitle"> @dataModel - Détails </div>
             <div class="menu-icon-layout">
-                @if (connected && connectedUser.IsAdmin || connectedUser.Id == ownerId)
+                @if (connected && connectedUser.IsAdmin || connectedUser.Id == Model.ownerId)
                 {
                     <a href="/@controller/Edit/@Request.RequestContext.RouteData.Values["id"]" class="cmdIcon fa fa-edit" title="Modifier"></a>
                     <i class="cmdIcon fa fa-trash"
@@ -79,8 +78,7 @@
         case "create":
             <div class="actionTitle"> @dataModel Ajout </div>
             <div class="menu-icon-layout">
-                <!--<i class="cmdIcon submitCmd fa fa-check" title="Soumettre"></i>-->
-                <i class="cmdIcon submitCmd fa fa-check" title="Soumettre" onclick="document.getElementById('createForm').submit();"></i>
+                <i class="cmdIcon submitCmd fa fa-check" title="Soumettre" onclick="validateAndSubmit();"></i>
                 <a href="/@controller/List" class="cmdIcon fa fa-times" title="Annuler"></a>
             </div>
             break;
@@ -143,3 +141,28 @@
             break;
     }
 </div>
+@section Scripts
+{
+    <script>
+        function validateAndSubmit() {
+            // Rechercher les messages d'erreur dans le formulaire
+            const errorMessages = document.querySelectorAll('#createForm .text-danger');
+
+            // Vérifier si des messages d'erreur sont visibles
+            let hasErrors = false;
+            errorMessages.forEach(function (error) {
+                if (error.innerText.trim() !== "") {
+                    hasErrors = true;
+                }
+            });
+
+            if (hasErrors) {
+                // Empêcher la soumission et afficher un message d'alerte
+                alert("Veuillez corriger les erreurs avant de soumettre le formulaire.");
+            } else {
+                // Soumettre le formulaire si aucune erreur n'est présente
+                document.getElementById('createForm').submit();
+            }
+        }
+    </script>
+}

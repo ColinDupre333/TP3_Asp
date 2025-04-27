@@ -69,7 +69,7 @@
                     <a href="/@controller/Edit/@Request.RequestContext.RouteData.Values["id"]" class="cmdIcon fa fa-edit" title="Modifier"></a>
                     <i class="cmdIcon fa fa-trash"
                        title="Effacer"
-                       onclick="bootbox.confirm('Effacer?', function(result){ if (result) window.location = '/@controller/Delete'; })">
+                       onclick="bootbox.confirm('Effacer?', function(result){ if (result) window.location = '/@controller/Delete/@Request.RequestContext.RouteData.Values["id"]'; })">
                     </i>
                 }
                 <a href="/@controller/List" class="cmdIcon fa fa-times" title="Annuler"></a>

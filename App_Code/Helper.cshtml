@@ -1,4 +1,114 @@
-﻿@helper ImageLink(string controller, string action, string imageUrl, string imageClass, string title)
+﻿@helper AvatarProfilLink(JsonDemo.Models.User user)
+{
+    if (user != null)
+    {
+        string avatarUrl;
+        if (user.Avatar != null)
+        {
+            avatarUrl = user.Avatar;
+        }
+        else
+        {
+            avatarUrl = "/Images_Data/Users_Avatars/no_avatar.png";
+        }
+        <a href="/Accounts/EditProfil" data-toggle="tooltip" title="Modifier le profil">
+            <div class="UserSmallAvatar" style="background: url('@avatarUrl')"></div>
+        </a>
+    }
+    else
+    {
+        <span>&nbsp;</span>
+    }
+}
+@helper AvatarUser(JsonDemo.Models.User user, string avatarClass = "UserMediumAvatar")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var avatarUrl = Url.Content(user.Avatar);
+    <div class="userItem">
+        <div class="@avatarClass" style="background: url('@avatarUrl')"></div>
+        <div class="ellipsis">@user.Name</div>
+    </div>
+}
+@helper UsersCheckList(IEnumerable<JsonDemo.Models.User> users, List<int> selectedUsers, string usersCheckListName = "UsersCheckList")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+
+    <div class="usersCheckList">
+        @foreach (var user in users)
+        {
+            string chekBoxId = usersCheckListName + "_" + user.Id.ToString();
+            if (selectedUsers.Contains(user.Id))
+            {
+                <input type="checkbox" name="@usersCheckListName" id="@chekBoxId" value="@user.Id" checked />
+            }
+            else
+            {
+                <input type="checkbox" name="@usersCheckListName" id="@chekBoxId" value="@user.Id" />
+            }
+            <label for="@chekBoxId">
+                @Helper.AvatarUser(user, "UserSmallAvatar")
+            </label>
+
+        }
+    </div>
+}
+@helper OnLineStatusIcon(bool onLine, bool blocked = false)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var icon = (onLine ? "~/Content/UI-icons/OnLine.png" : "~/Content/UI-icons/OffLine.png");
+    if (blocked)
+    {
+        icon = (onLine ? "~/Content/UI-icons/OnLine.png" : "~/Content/UI-icons/Masked.png");
+    }
+    var iconUrl = Url.Content(icon);
+    <img src="@iconUrl" class="small_icon" />
+}
+@helper TimeOutIcon()
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var iconUrl = Url.Content("~/Content/UI-icons/timeout.png");
+    <img src="@iconUrl" class="small_icon" />
+}
+@helper Checked(bool checkStatus)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    if (checkStatus)
+    {
+        <img src="@Url.Content("~/Content/UI-icons/Accept.png")" class="small_icon" />
+    }
+    else
+    {
+        <div></div>
+    }
+}
+@helper UserTypeIcon(int genderId)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var icon = "";
+    var tooltip = "";
+    switch (genderId)
+    {
+        case 1: icon = "~/Content/UI-icons/admin.png"; tooltip = "Administrateur"; break;
+        case 2: icon = "~/Content/UI-icons/power user.png"; tooltip = "Usager prévilégié"; break;
+        default: icon = "~/Content/UI-icons/user.png"; tooltip = "Usager standard"; break;
+    }
+    var iconUrl = Url.Content(icon);
+    <img src="@iconUrl" class="UserSmallAvatar" title="@tooltip" />
+}
+@helper GenderIcon(int genderId)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var icon = "";
+    switch (genderId)
+    {
+        case 1: icon = "~/Content/UI-icons/male.png"; break;
+        case 2: icon = "~/Content/UI-icons/female.png"; break;
+        default: icon = "~/Content/UI-icons/neutral.png"; break;
+    }
+    var iconUrl = Url.Content(icon);
+    <img src="@iconUrl" class="small_icon" />
+}
+@helper ImageLink(string controller, string action, string imageUrl, string imageClass, string title)
 {
     var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
     <a href="@Url.Action(action, controller)">
@@ -23,13 +133,20 @@
         </span>
     </a>
 }
-@helper IconConfirmCmd(string controller, string Action, string icon_class, string TooltipMessage, string ToolTipPlacement = "bottom")
+
+@helper ButtonConfirmCmd(string actionUrl, string btn_class, string caption, string TooltipMessage, string ToolTipPlacement = "bottom")
 {
-    //// http://bootboxjs.com/documentation.html#bb-confirm
-    /// To do window.location is considered has a new connexion and cause authentification problems
-    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    <div onclick='bootbox.confirm("@TooltipMessage", function(result){ if (result) window.location.href = "@Url.Action(Action,controller)"; })'>
-        <span class="icon fa @icon_class"
+    <button onclick="bootbox.confirm('@TooltipMessage', function(result){ if (result) window.location.href = '@actionUrl'; })"
+            class="@btn_class"
+            title="@TooltipMessage"
+            data-placement="@ToolTipPlacement">
+        @caption
+    </button>
+}
+@helper IconConfirmCmd(string actionUrl, string icon_class, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    <div onclick="bootbox.confirm('@TooltipMessage', function(result){ if (result) window.location.href = '@actionUrl'; })">
+        <span class="@icon_class"
               title="@TooltipMessage"
               data-placement="@ToolTipPlacement">
         </span>
@@ -91,25 +208,28 @@
                 }
             }
         </select>
-
-        <div class="HorSelectionsCMD">
-            <div class="AddSelection icon fa fa-circle-left" data-toggle="tooltip" data-placement="top" title="Ajouter"></div>
-            <div class="RemoveSelection icon fa fa-circle-right" data-toggle="tooltip" data-placement="bottom" title="Retirer"></div>
-            <div class="UnselectAll icon fa fa-times" data-toggle="tooltip" data-placement="bottom" title="Desélectionner"></div>
+        <div class="selectionsIcons">
+            <div class="MoveLeft icon fa fa-toggle-left" data-toggle="tooltip" data-placement="top" title="Ajouter"></div>
+            <div class="MoveRight icon fa fa-toggle-right" data-toggle="tooltip" data-placement="bottom" title="Retirer"></div>
         </div>
-
-        <div class="VerSelectionsCMD">
-            <div class="AddSelection icon fa fa-circle-up" data-toggle="tooltip" data-placement="top" title="Ajouter"></div>
-            <div class="RemoveSelection icon fa fa-circle-down" data-toggle="tooltip" data-placement="bottom" title="Retirer"></div>
-            <div class="UnselectAll icon fa fa-times" data-toggle="tooltip" data-placement="bottom" title="Desélectionner"></div>
-        </div>
-
         <select size='@size.ToString()' multiple class='UnselectedItems form-control'>
             @if (items != null)
             {
                 foreach (var ui in items)
                 {
-                    if (selectedItems != null && selectedItems.Where(s => s.Value == ui.Value).FirstOrDefault() == null)
+                    bool found = false;
+                    if (selectedItems != null)
+                    {
+                        foreach (var si in selectedItems)
+                        {
+                            if (si.Value == ui.Value)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!found)
                     {
                         <option value='@ui.Value'>@ui.Text</option>
                     }
@@ -118,114 +238,58 @@
         </select>
     </div>
 }
-@helper ImageUploader(string targetControlId, string imageUrl, string TooltipMessage = "")
+@helper ImageUploader(int modelId, string targetControlId, string imageUrl, string TooltipMessage = "", string ToolTipPlacement = "bottom")
 {
+    var waitingImage = "/Content/images/Loading_icon.gif";
     <div class='imageUploader'
+         id='@modelId'
          controlId='@targetControlId'
          imageSrc='@imageUrl'
+         waitingImage='@waitingImage'
+         data-toggle="tooltip"
+         data-placement="@ToolTipPlacement"
          title="@TooltipMessage">
     </div>
 }
 @helper Image(string url, string cssClass)
 {
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    url = Url.Content(url);
     <div class="@cssClass" style="background:url(@url);"></div>
 }
-@helper ButtonConfirmCmd(string actionUrl, string btn_class, string caption, string TooltipMessage, string ToolTipPlacement = "bottom")
+@helper When(DateTime date, bool showtime = true)
 {
-    <button onclick="bootbox.confirm('@TooltipMessage', function(result){ if (result) window.location.href = '@actionUrl'; })"
-            class="@btn_class"
-            title="@TooltipMessage"
-            data-placement="@ToolTipPlacement">
-        @caption
-    </button>
-}
-@helper CountryFlag(string countryCode)
-{
-    var country = JsonDemo.WebServices.Countries.Get(countryCode);
-    if (country != null)
+    TimeSpan span = DateTime.Now.Subtract(date);
+    DateTime localTime = date; //date.Subtract(new TimeSpan((int)Session["TimeZoneOffset"], 0, 0));
+    if (span.Days > 0)
     {
-        <img src="@country.Flag" title="@country.Name" style="width:40px;" />
-    }
-}
-@helper avatarLink(string avatar, string linkUrl)
-{
-    <a href="@linkUrl" data-toggle="tooltip" title="Modifier le profil....">
-        <div class="UserSmallAvatar"
-             style="background: url(@avatar)"></div>
-    </a>
-}
-@helper AvatarUser(JsonDemo.Models.User user, string avatarClass = "UserMediumAvatar")
-{
-    var avatarUrl = user.Avatar;
-    <div class="userItem">
-        <div class="@avatarClass" style="background: url(@user.Avatar)"></div>
-        <div class="ellipsis">@user.Name</div>
-    </div>
-}
-@helper UsersCheckList(IEnumerable<JsonDemo.Models.User> users, List<int> selectedUsers, string usersCheckListName = "UsersCheckList")
-{
-    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-
-    <div class="usersCheckList">
-        @foreach (var user in users)
+        if (showtime)
         {
-            string chekBoxId = usersCheckListName + "_" + user.Id.ToString();
-            if (selectedUsers.Contains(user.Id))
-            {
-                <input type="checkbox" name="@usersCheckListName" id="@chekBoxId" value="@user.Id" checked />
-            }
-            else
-            {
-                <input type="checkbox" name="@usersCheckListName" id="@chekBoxId" value="@user.Id" />
-            }
-            <label for="@chekBoxId">
-                @Helper.AvatarUser(user, "UserSmallAvatar")
-            </label>
+            <span>@localTime.ToLongDateString() - @localTime.ToShortTimeString()</span>
         }
-    </div>
-}
-@helper OnLineStatusIcon(bool onLine, bool blocked = false)
-{
-    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    var icon = (onLine ? "/Content/UI-Images/OnLine.png" : "/Content/UI-Images/OffLine.png");
-    if (blocked)
-    {
-        icon = (onLine ? "/Content/UI-Images/OnLine.png" : "/Content/UI-Images/Masked.png");
-    }
-    var iconUrl = Url.Content(icon);
-    <img src="@iconUrl" class="small_icon" />
-}
-@helper TimeOutIcon()
-{
-    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    var iconUrl = Url.Content("~/Content/UI-Images/timeout.png");
-    <img src="@iconUrl" class="small_icon" title="Session expirée" />
-}
-@helper Checked(bool checkStatus)
-{
-    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    if (checkStatus)
-    {
-        <img src="@Url.Content("~/Content/UI-Images/Accept.png")" class="small_icon" />
+        else
+        {
+            <div style="display:grid; grid-template-columns:auto 30px;">
+                <div>@localTime.ToLongDateString()&nbsp;</div>
+                <div class="glyphicon glyphicon-time smallGlyphicon" title="@localTime.ToShortTimeString()" data-placement="right"></div>
+            </div>
+        }
     }
     else
     {
-        <div><img src="@Url.Content("~/Content/UI-Images/Abort.png")" class="small_icon" /></div>
+        if (span.Hours > 1)
+        {
+            <span>Il y a @span.Hours heures</span> }
+        else
+        {
+            if (span.Minutes > 1)
+            {
+                <span>Il y a @span.Minutes minutes</span> }
+            else
+            {
+                <span>à l'instant</span>}
+        }
     }
-}
-@helper UserTypeIcon(int genderId)
-{
-    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    var icon = "";
-    var tooltip = "";
-    switch (genderId)
-    {
-        case 1: icon = "~/Content/UI-Images/admin.png"; tooltip = "Administrateur"; break;
-        case 2: icon = "~/Content/UI-Images/power user.png"; tooltip = "Usager prévilégié"; break;
-        default: icon = "~/Content/UI-Images/user.png"; tooltip = "Usager standard"; break;
-    }
-    var iconUrl = Url.Content(icon);
-    <img src="@iconUrl" class="UserSmallAvatar" title="@tooltip" />
 }
 @helper ParseContent(string content)
 {

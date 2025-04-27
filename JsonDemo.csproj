@@ -111,8 +111,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\LikesRepository.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginsRepository.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotosRepository.cs" />
     <Compile Include="WebServices\Countries.cs" />
     <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Loading_icon.gif" />
@@ -176,6 +181,7 @@
     <Content Include="Content\UI-Images\OnLine.png" />
     <Content Include="Content\UI-Images\power_user.png" />
     <Content Include="Content\UI-Images\timeout.png" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Logo-Lionel-Groulx.png" />
@@ -215,11 +221,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Edit.cshtml" />
-    <Content Include="Views\Courses\CourseForm.cshtml" />
     <Content Include="Views\Shared\_header.cshtml" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
@@ -233,11 +234,12 @@
     <Content Include="Views\Accounts\ManageUsers.cshtml" />
     <Content Include="Views\Accounts\RenewPassword.cshtml" />
     <Content Include="Views\Accounts\RenewPasswordCommand.cshtml" />
-    <Content Include="Views\Courses\GetCourses.cshtml" />
-    <Content Include="Views\Courses\GetCourse.cshtml" />
-    <Content Include="Views\Courses\GetRegistrations.cshtml" />
     <Content Include="Views\Accounts\LoginsJournal.cshtml" />
     <Content Include="Views\Accounts\GetLoginsList.cshtml" />
+    <Content Include="Views\Photos\Create.cshtml" />
+    <Content Include="Views\Photos\Details.cshtml" />
+    <Content Include="Views\Photos\Edit.cshtml" />
+    <Content Include="Views\Photos\List.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

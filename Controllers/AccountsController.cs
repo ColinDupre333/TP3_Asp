@@ -84,7 +84,7 @@ namespace JsonDemo.Controllers
                 }
                 DB.Users.SetOnline(Session["ConnectedUser"], true);
             }
-            return RedirectToAction("Index", "Students");
+            return RedirectToAction("List", "Photos");
         }
         public ActionResult Subscribe()
         {
@@ -232,7 +232,7 @@ namespace JsonDemo.Controllers
             if (newEmail)
                 return Redirect("/Accounts/Login?message=Un courriel de vérification d'adresse de courriel vous a été envoyé!");
             else
-                return RedirectToAction("Index", "Students");
+                return RedirectToAction("List", "Photos");
         }
         [UserAccess]
         public ActionResult DeleteProfil()

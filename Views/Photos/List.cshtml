@@ -34,6 +34,32 @@
                 </a>
             </div>
         }
+
+        else if (!photo.Shared && photo.OwnerId == connectedUser.Id)
+        {
+            <div class="photoLayout">
+                <div class="photoTitleContainer" title="@photo.Description">
+                    <div class="photoTitle ellipsis">@photo.Title</div>
+                </div>
+                <a href="/Photos/Details/@photo.Id" title="Afficher les détails de @photo.Title">
+                    <div class="photoImage" style="background-image:url('@photo.Image')">
+                        <div class="UserSmallAvatar transparentBackground" style="background-image: url('@photo.Owner.Avatar')" title="@photo.Owner.Name"></div>
+                        @if (photo.Shared && connectedUser.IsAdmin)
+                        {
+                            <div class="UserSmallAvatar transparentBackground" style="background-image:url('/Content/UI-Images/shared.png')" title="partagée"></div>
+                        }
+                    </div>
+                    <div class="photoCreationDate">
+
+                        @Helper.When(photo.CreationDate)
+                        <div class="likesSummary">
+                            @photo.Likes
+                            <i class="cmdIconSmall @(photo.LikedByUser ? "fa fa-thumbs-up" : "fa-regular fa-thumbs-up")"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     }
 </div>
 @section Scripts

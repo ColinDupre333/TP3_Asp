@@ -7,18 +7,17 @@
     string dataModel = "";
 }
 <div id="header">
-    <img src="/Logo-Lionel-Groulx.png" class="appLogo" alt="" title="Régistraire">
+    <a href="~/Views/Photos/List"><img src="/favicon.ico" class="appLogo" alt="" title="Régistraire"></a>
+
 
     @switch (action)
     {
-        case "index":
+        case "list":
             if (connected)
             {
+                <div class="actionTitle">Photos </div>
                 <div class="menu-icon-layout">
-                    @if (connected && connectedUser.IsAdmin)
-                    {
-                        <a href="/@controller/Create" class="cmdIcon fa fa-plus" title="Ajouter un @dataModel"></a>
-                    }
+                    <a href="/Photos/Create" class="cmdIcon fa fa-plus" title="Ajouter une photo"></a>
                     <a href="/@controller/ToggleSearch" class="cmdIcon fa fa-search" title="Afficher/Masquer la barre de recherche"></a>
                     <div class="dropdown">
                         <div data-bs-toggle="dropdown" aria-expanded="false">

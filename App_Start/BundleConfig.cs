@@ -26,13 +26,11 @@ namespace JsonDemo
                      "~/Content/jquery-ui.css",
                      "~/Content/jquery-ui.strucure.css",
                      "~/Content/jquery-ui.theme.css",
-                     "~/Content/site.css",
+                     "~/Content/Site.css",
+                     "~/Content/photo.css",
                      "~/Content/popup.css",
                      "~/Content/Accounts.css",
                      "~/Content/Icons.css",
-                     "~/Content/Students.css",
-                     "~/Content/Courses.css",
-                     "~/Content/Teachers.css",
                      "~/Content/Selections.css"));
         }
     }

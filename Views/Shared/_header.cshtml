@@ -144,10 +144,9 @@
 {
     <script>
         function validateAndSubmit() {
-            // Rechercher les messages d'erreur dans le formulaire
+
             const errorMessages = document.querySelectorAll('#createForm .text-danger');
 
-            // Vérifier si des messages d'erreur sont visibles
             let hasErrors = false;
             errorMessages.forEach(function (error) {
                 if (error.innerText.trim() !== "") {
@@ -156,10 +155,8 @@
             });
 
             if (hasErrors) {
-                // Empêcher la soumission et afficher un message d'alerte
                 alert("Veuillez corriger les erreurs avant de soumettre le formulaire.");
             } else {
-                // Soumettre le formulaire si aucune erreur n'est présente
                 document.getElementById('createForm').submit();
             }
         }

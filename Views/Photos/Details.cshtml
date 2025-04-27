@@ -21,7 +21,9 @@
                 <span>@Model.CreationDate</span>
                 <div class="likesSummary">
                     @Model.Likes.Count
-                    <div style="font-size:1.1em" class="cmdIconSmall fa-regular fa-thumbs-up" id="addRemoveLikeCmd" data-photoid="@Model.Id" title="@Model.UsersLikeList"></div><!--a finir-->
+                    <a href="@Url.Action("TogglePhotoLike","Photos",new { id = Model.Id })">
+                        <div style="font-size:1.1em" class="cmdIconSmall @(Model.LikedByUser ? "fa fa-thumbs-up" : "fa-regular fa-thumbs-up")" id="addRemoveLikeCmd" data-photoid="@Model.Id" title="@Model.UsersLikeList"></div><!--a finir-->
+                    </a>
                 </div>
 
             </div>
@@ -31,7 +33,7 @@
 </div>
 
 <script>
-    $(document).on('click', '#addRemoveLikeCmd', function () {
+    @*$(document).on('click', '#addRemoveLikeCmd', function () {
         var photoId = $(this).data('photoid');
         var $icon = $(this);
 
@@ -61,5 +63,5 @@
                 alert('An error occurred while processing your request.');
             }
         });
-    });
+    });*@
 </script>

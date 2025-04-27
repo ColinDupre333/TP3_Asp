@@ -50,6 +50,16 @@ namespace JsonDemo.Models
                 return UsersLikeList;
             }
         }
+        [JsonIgnore]
+        public bool LikedByUser
+        {
+            get
+            {
+                var connectedUser = (User)HttpContext.Current.Session["ConnectedUser"];
+
+                return Likes.Any(like => like.UserId == connectedUser.Id);
+            }
+        }
 
         public Photo()
         {

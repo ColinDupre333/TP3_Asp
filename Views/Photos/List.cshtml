@@ -28,7 +28,7 @@
                         @Helper.When(photo.CreationDate)
                         <div class="likesSummary">
                             @photo.Likes.Count
-                            <i class="cmdIconSmall fa-regular fa-thumbs-up"></i>
+                            <i class="cmdIconSmall @(photo.LikedByUser ? "fa fa-thumbs-up" : "fa-regular fa-thumbs-up")"></i>
                         </div>
                     </div>
                 </a>

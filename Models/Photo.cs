@@ -33,28 +33,21 @@ namespace JsonDemo.Models
             {
                 return LikesList.Count;
             }
-        }       
+        }
 
         // 
         // compte des likes
         [ImageAsset(PhotosFolder, DefaultPhoto)]
-        public string Image { get; set; }         // Url relatif de l'image
-
-        [JsonIgnore]
-        private List<Like> likeslist = null; 
+        public string Image { get; set; } = DefaultImage;       // Url relatif de l'image
 
         [JsonIgnore]
         public List<Like> LikesList
         {
             get
-            {
-                if (likeslist == null)
-                {
-                    likeslist = DB.Likes.ToList().Where(l => l.PhotoId == Id).ToList();
-                }
-                return likeslist;
+            {   
+                return DB.Likes.ToList().Where(l => l.PhotoId == Id).ToList();     
             }
-            set { likeslist = value; }
+            
         }
         [JsonIgnore]
         public string UsersLikeList

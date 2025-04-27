@@ -115,11 +115,9 @@ namespace JsonDemo.Controllers
                 Photo existingPhoto = DB.Photos.Get(photo.Id);
                 if (existingPhoto != null)
                 {
-                    // Preserve the OwnerId
-                    photo.OwnerId = existingPhoto.OwnerId;
+                   photo.OwnerId = existingPhoto.OwnerId;
 
-                    // Update the photo
-                    DB.Photos.Update(photo);
+                   DB.Photos.Update(photo);
                 }
                 return RedirectToAction("List");
             }

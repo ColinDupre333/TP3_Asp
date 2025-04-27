@@ -10,7 +10,7 @@ namespace JsonDemo.Models
 {
     public class Photo
     {
-        const string PhotosFolder = @"/Images_Data/Photos/";
+        const string PhotosFolder = @"/App_Assets/Photos/";
         const string DefaultPhoto = @"No_Image.png";
 
         public int Id { get; set; }

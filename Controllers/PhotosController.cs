@@ -140,13 +140,12 @@ namespace JsonDemo.Controllers
         public ActionResult Edit(Photo photo)
         {
             User connectedUser = ((User)Session["ConnectedUser"]);
-            if (connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id)
-            {
-                Photo existingPhoto = DB.Photos.Get(photo.Id);
+            Photo existingPhoto = DB.Photos.Get(photo.Id);
+            if (connectedUser.IsAdmin || existingPhoto.OwnerId == connectedUser.Id)
+            { 
                 if (existingPhoto != null)
                 {
                    photo.OwnerId = existingPhoto.OwnerId;
-
                    DB.Photos.Update(photo);
                 }
                 return RedirectToAction("List");

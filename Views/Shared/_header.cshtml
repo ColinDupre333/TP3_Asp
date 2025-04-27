@@ -5,6 +5,7 @@
     var connectedUser = connected ? (JsonDemo.Models.User)Session["ConnectedUser"] : null;
     bool admin = connected ? connectedUser.Admin : false;
     string dataModel = "";
+    int ownerId = ((JsonDemo.Models.User)Session["ConnectedUser"]).Id;
 }
 <div id="header">
     <a href="~/Photos/List"><img src="/favicon.ico" class="appLogo" alt="" title="Régistraire"></a>
@@ -64,7 +65,7 @@
         case "details":
             <div class="actionTitle"> @dataModel - Détails </div>
             <div class="menu-icon-layout">
-                @if (connected && connectedUser.IsAdmin)
+                @if (connected && connectedUser.IsAdmin || connectedUser.Id == ownerId)
                 {
                     <a href="/@controller/Edit/@Request.RequestContext.RouteData.Values["id"]" class="cmdIcon fa fa-edit" title="Modifier"></a>
                     <i class="cmdIcon fa fa-trash"

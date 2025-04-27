@@ -42,6 +42,9 @@ namespace JsonDemo.Models
         public string Image { get; set; }         // Url relatif de l'image
 
         [JsonIgnore]
+        private List<Like> likeslist = null; 
+
+        [JsonIgnore]
         public List<Like> LikesList
         {
             get

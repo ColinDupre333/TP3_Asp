@@ -19,7 +19,7 @@ namespace JsonDemo.Models
         public string Description { get; set; }     // Description de la photo
         public DateTime CreationDate { get; set; }  // Date de création
         public bool Shared { get; set; }            // Indicateur de partage ("true" ou "false")
-        public int Likes { get; set; }              // compte des likes
+
         [Asset(PhotosFolder)]
         public string Image { get; set; }           // Url relatif de l'image
 
@@ -37,6 +37,28 @@ namespace JsonDemo.Models
             get
             {
                 return DB.Users.Get(OwnerId);
+            }
+        }
+
+        [JsonIgnore]
+        public List<Like> Likes
+        {
+            get
+            {
+                return DB.Likes.ToList().Where(l => l.PhotoId == Id).ToList();
+            }
+        }
+        [JsonIgnore]
+        public string UsersLikeList
+        {
+            get
+            {
+                string UsersLikeList = "";
+                foreach (var like in Likes)
+                {
+                    UsersLikeList += DB.Users.Get(like.UserId).Name + "\n";
+                }
+                return UsersLikeList;
             }
         }
     }

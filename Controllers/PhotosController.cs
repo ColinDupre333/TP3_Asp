@@ -158,7 +158,7 @@ namespace JsonDemo.Controllers
             if (photo != null)
             {
                 User connectedUser = ((User)Session["ConnectedUser"]);
-                if (connectedUser.IsAdmin || photo.Shared)
+                if (connectedUser.IsAdmin || photo.Shared || photo.OwnerId == connectedUser.Id)
                     return View(photo);
                 else
                     return Redirect(IllegalAccessUrl);

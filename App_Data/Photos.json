@@ -3,8 +3,8 @@
     "Id": 3,
     "OwnerId": 1,
     "Title": "Guitare Godin",
-    "Description": "LGXT donne accès a l'univers du synthétiseur",
-    "CreationDate": "2024-01-07T13:31:47",
+    "Description": "LGXT donne accï¿½s a l'univers du synthï¿½tiseur",
+    "CreationDate": "2025-04-26",
     "Shared": true,
     "Likes": 2,
     "Image": "/App_Assets/Photos/85ce54d5-08fc-4254-a422-2e7953023f8a.jpeg"
@@ -14,7 +14,7 @@
     "OwnerId": 2,
     "Title": "Montagnes",
     "Description": "Lac de montagnes",
-    "CreationDate": "2024-01-07T13:32:36.9300028-05:00",
+    "CreationDate": "2024-01-07",
     "Shared": true,
     "Likes": 1,
     "Image": "/App_Assets/Photos/49df6887-9e04-40ae-a03c-55d3336e24fc.jpeg"
@@ -23,8 +23,8 @@
     "Id": 5,
     "OwnerId": 3,
     "Title": "Ouragan Floride",
-    "Description": "Côte ouest de la Floride dévastée par l'ouragan Ian en 2022",
-    "CreationDate": "2024-01-08T11:20:17",
+    "Description": "Cï¿½te ouest de la Floride dï¿½vastï¿½e par l'ouragan Ian en 2022",
+    "CreationDate": "2024-01-08",
     "Shared": true,
     "Likes": 1,
     "Image": "/App_Assets/Photos/0fe4d7c7-d7c6-458e-ac42-e28275456361.jpeg"
@@ -33,8 +33,8 @@
     "Id": 6,
     "OwnerId": 4,
     "Title": "Arbres",
-    "Description": "Forêt au lever du soleil",
-    "CreationDate": "2024-01-09T11:34:06.0233469-05:00",
+    "Description": "Forï¿½t au lever du soleil",
+    "CreationDate": "2024-01-09",
     "Shared": true,
     "Likes": 0,
     "Image": "/App_Assets/Photos/b00604ef-9145-4e67-90c0-64c33b9e3a44.jpeg"
@@ -53,8 +53,8 @@
     "Id": 8,
     "OwnerId": 2,
     "Title": "ISU - Vincent Zhou",
-    "Description": "Patineur américain ",
-    "CreationDate": "2024-01-09T11:50:27",
+    "Description": "Patineur amï¿½ricain ",
+    "CreationDate": "2024-01-09",
     "Shared": true,
     "Likes": 0,
     "Image": "/App_Assets/Photos/ca87c83a-d582-4e36-b5e5-1f652d98cc4b.png"
@@ -63,8 +63,8 @@
     "Id": 9,
     "OwnerId": 1,
     "Title": "Le vaisseau spatial Orion",
-    "Description": "La NASA a annoncé le report des deux prochaines missions habitées de son programme lunaire.\r\n\r\nLa mission Artemis 2, qui devait décoller de la Terre en novembre 2024, est maintenant prévue pour septembre 2025. Cette mission – à laquelle participera l’astronaute canadien Jeremy Hansen – doit faire le tour de la Lune sans y atterrir.\r\n\r\nPour sa part, Artemis 3, qui doit ramener des astronautes sur la surface lunaire pour la première fois depuis la fin d'Apollo en 1972, est reportée de la fin 2025 à septembre 2026.",
-    "CreationDate": "2024-01-09T14:59:45",
+    "Description": "La NASA a annoncï¿½ le report des deux prochaines missions habitï¿½es de son programme lunaire.\r\n\r\nLa mission Artemis 2, qui devait dï¿½coller de la Terre en novembre 2024, est maintenant prï¿½vue pour septembre 2025. Cette mission ï¿½ ï¿½ laquelle participera lï¿½astronaute canadien Jeremy Hansen ï¿½ doit faire le tour de la Lune sans y atterrir.\r\n\r\nPour sa part, Artemis 3, qui doit ramener des astronautes sur la surface lunaire pour la premiï¿½re fois depuis la fin d'Apollo en 1972, est reportï¿½e de la fin 2025 ï¿½ septembre 2026.",
+    "CreationDate": "2024-01-09",
     "Shared": true,
     "Likes": 0,
     "Image": "/App_Assets/Photos/591770b4-8f4e-472a-83eb-84401870b3b8.png"

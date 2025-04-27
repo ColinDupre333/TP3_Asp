@@ -179,6 +179,7 @@
     <Content Include="Content\UI-Images\OffLine.png" />
     <Content Include="Content\UI-Images\OnLine.png" />
     <Content Include="Content\UI-Images\power_user.png" />
+    <Content Include="Content\UI-Images\shared.png" />
     <Content Include="Content\UI-Images\timeout.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

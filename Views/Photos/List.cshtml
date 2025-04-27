@@ -20,10 +20,11 @@
                         <div class="UserSmallAvatar transparentBackground" style="background-image: url('@photo.Owner.Avatar')" title="@photo.Owner.Name"></div>
                         @if (photo.Shared)
                         {
-                            <div class="UserSmallAvatar transparentBackground" style="background-image:url('/Content/images/shared.png')" title="partagée"></div>
+                            <div class="UserSmallAvatar transparentBackground" style="background-image:url('/Content/UI-Images/shared.png')" title="partagée"></div>
                         }
                     </div>
                     <div class="photoCreationDate">
+
                         @Helper.When(photo.CreationDate)
                         <div class="likesSummary">
                             @photo.Likes

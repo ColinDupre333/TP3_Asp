@@ -20,7 +20,7 @@
             <div class="photoDetailsCreationDate">
                 <span>@Helper.When(Model.CreationDate)</span>
                 <div class="likesSummary">
-                    @Model.Likes.Count
+                    @Model.Likes
                     <a href="@Url.Action("TogglePhotoLike","Photos",new { id = Model.Id })">
                         <div style="font-size:1.1em" class="cmdIconSmall @(Model.LikedByUser ? "fa fa-thumbs-up" : "fa-regular fa-thumbs-up")" id="addRemoveLikeCmd" data-photoid="@Model.Id" title="@Model.UsersLikeList"></div><!--a finir-->
                     </a>

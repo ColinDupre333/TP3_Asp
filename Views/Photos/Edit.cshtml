@@ -4,30 +4,35 @@
 @{
     ViewBag.Title = "Edit";
 }
+@using (Html.BeginForm("Edit", "Photos", FormMethod.Post, new { @id = "editForm" }))
+{
+    @Html.AntiForgeryToken()
 
-<div id="content">
-    <div id="">
+    <div id="content">
         <div id="">
-            <div class="photoDetailsOwner">
-                <div class="UserSmallAvatar" style="background-image:url(@Model.Owner.Avatar)" title="@Model.Owner.Name"></div>
-                @Model.Owner.Name
-            </div>
-            <hr />
-            <div class="photo-form">
-                <fieldset>
-                    <legend>Informations</legend>
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.Title) } })
-                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.Description), rows = 5 })
-                    <div style="display:grid; grid-template-columns:1em auto; gap:8px; align-items:center">
-                        @Html.CheckBoxFor(model => model.Shared, new { @class = "form-check-input" })
-                        <label for="Shared">Partagée</label>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Photo</legend>
-                    @Helper.ImageUploader(0, "Photos", Model.Image, "Cliquez glisser une photo")
-                </fieldset>
+            <div id="">
+                <div class="photoDetailsOwner">
+                    <div class="UserSmallAvatar" style="background-image:url(@Model.Owner.Avatar)" title="@Model.Owner.Name"></div>
+                    @Model.Owner.Name
+                </div>
+                <hr />
+                <div class="photo-form">
+                    <fieldset>
+                        <legend>Informations</legend>
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.Title) } })
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.Description), rows = 5 })
+                        <div style="display:grid; grid-template-columns:1em auto; gap:8px; align-items:center">
+                            @Html.CheckBoxFor(model => model.Shared, new { @class = "form-check-input" })
+                            <label for="Shared">Partagée</label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Photo</legend>
+                        @Helper.ImageUploader(Model.Id, "Image", Model.Image, "Cliquez glisser une photo")
+                        <img src="@Model.Image" class="photoImage" />
+                    </fieldset>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}

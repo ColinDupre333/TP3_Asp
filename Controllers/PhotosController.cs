@@ -34,16 +34,16 @@ namespace JsonDemo.Controllers
             switch ((string)Session["PhotosSortType"])
             {
                 case "likes":
-                    list = DB.Photos.ToList().OrderByDescending(p => p.Likes).ThenByDescending(p => p.CreationDate).ToList();
+                    list = DB.Photos.ToList().Where(p => p != null).OrderByDescending(p => p.Likes).ThenByDescending(p => p.CreationDate).ToList();
                     break;
                 case "owner":
-                    list = DB.Photos.ToList().Where(p => p.OwnerId == ((User)Session["ConnectedUser"]).Id).OrderByDescending(p => p.CreationDate).ToList();
+                    list = DB.Photos.ToList().Where(p => p != null &&  p.OwnerId == ((User)Session["ConnectedUser"]).Id).OrderByDescending(p => p.CreationDate).ToList();
                     break;
                 case "user":
                     if ((int)Session["photoOwnerSearchId"] != 0)
-                        list = DB.Photos.ToList().Where(p => p.OwnerId == (int)Session["photoOwnerSearchId"]).OrderByDescending(p => p.CreationDate).ToList();
+                        list = DB.Photos.ToList().Where(p => p != null && p.OwnerId == (int)Session["photoOwnerSearchId"]).OrderByDescending(p => p.CreationDate).ToList();
                     else
-                        list = DB.Photos.ToList().OrderBy(p => p.Owner.Name).ThenByDescending(p => p.CreationDate).ToList();
+                        list = DB.Photos.ToList().Where(p => p != null).OrderBy(p => p.Owner.Name).ThenByDescending(p => p.CreationDate).ToList();
                     break;
                 case "keywords":
                     if (!string.IsNullOrEmpty((string)Session["searchKeywords"]))
@@ -52,6 +52,7 @@ namespace JsonDemo.Controllers
                         string[] keywords = ((string)Session["searchKeywords"]).Split(' ');
                         foreach (var photo in DB.Photos.ToList())
                         {
+                            if (photo == null) continue;
                             bool keep = true;
                             foreach (string keyword in keywords)
                             {
@@ -68,10 +69,10 @@ namespace JsonDemo.Controllers
                         list = list.OrderByDescending(p => p.CreationDate).ToList();
                     }
                     else
-                        list = DB.Photos.ToList().OrderByDescending(p => p.CreationDate).ToList();
+                        list = DB.Photos.ToList().Where(p => p != null).OrderByDescending(p => p.CreationDate).ToList();
                     break;
                 default:
-                    list = DB.Photos.ToList().OrderByDescending(p => p.CreationDate).ToList();
+                    list = DB.Photos.ToList().Where(p => p != null).OrderByDescending(p => p.CreationDate).ToList();
                     break;
             }
             return View(list);
@@ -110,7 +111,15 @@ namespace JsonDemo.Controllers
             User connectedUser = ((User)Session["ConnectedUser"]);
             if (connectedUser.IsAdmin || photo.OwnerId == connectedUser.Id)
             {
-                DB.Photos.Update(photo);
+                Photo existingPhoto = DB.Photos.Get(photo.Id);
+                if (existingPhoto != null)
+                {
+                    // Preserve the OwnerId
+                    photo.OwnerId = existingPhoto.OwnerId;
+
+                    // Update the photo
+                    DB.Photos.Update(photo);
+                }
                 return RedirectToAction("List");
             }
             return Redirect(IllegalAccessUrl);
@@ -149,18 +158,6 @@ namespace JsonDemo.Controllers
             User connectedUser = (User)Session["ConnectedUser"];
             DB.Likes.ToogleLike(id, connectedUser.Id);
             return RedirectToAction("Details/" + id);
-            //User connectedUser = (User)Session["ConnectedUser"];
-            //DB.Likes.ToogleLike(id, connectedUser.Id);
-
-            //// Get the updated photo
-            //Photo photo = DB.Photos.Get(id);
-
-            //return Json(new
-            //{
-            //    success = true,
-            //    likesCount = photo.Likes.Count,
-            //    usersLikeList = photo.UsersLikeList
-            //});
         }
     }
 }

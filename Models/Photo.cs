@@ -14,6 +14,9 @@ namespace JsonDemo.Models
         const string PhotosFolder = @"/App_Assets/Photos/";
         const string DefaultPhoto = @"No_Image.png";
 
+        [JsonIgnore]
+        public static string DefaultImage { get { return PhotosFolder + DefaultPhoto; } }
+
         public int Id { get; set; }
         public int OwnerId { get; set; }            // Id du propriétaire de la photo
 
@@ -23,19 +26,36 @@ namespace JsonDemo.Models
         [Display(Name = "Description"), Required(ErrorMessage = "Obligatoire")]
         public string Description { get; set; }     // Description de la photo
         public DateTime CreationDate { get; set; }  // Date de création
-        public bool Shared { get; set; }            // Indicateur de partage ("true" ou "false")
-                                                    // 
-                                                    // compte des likes
-        [ImageAsset(PhotosFolder, DefaultPhoto)]
-        public string Image { get; set; }         // Url relatif de l'image
+        public bool Shared { get; set; }  // Indicateur de partage ("true" ou "false")
 
-        [JsonIgnore]
-        public List<Like> Likes
+        public int Likes
         {
             get
             {
-                return DB.Likes.ToList().Where(l => l.PhotoId == Id).ToList();
+                return LikesList.Count;
             }
+        }       
+
+        // 
+        // compte des likes
+        [ImageAsset(PhotosFolder, DefaultPhoto)]
+        public string Image { get; set; } = DefaultImage;       // Url relatif de l'image
+
+        [JsonIgnore]
+        private List<Like> likeslist;
+
+        [JsonIgnore]
+        public List<Like> LikesList
+        {
+            get
+            {
+                if (likeslist == null)
+                {
+                    likeslist = DB.Likes.ToList().Where(l => l.PhotoId == Id).ToList();
+                }
+                return likeslist;
+            }
+            set { likeslist = value; }
         }
         [JsonIgnore]
         public string UsersLikeList
@@ -43,7 +63,7 @@ namespace JsonDemo.Models
             get
             {
                 string UsersLikeList = "";
-                foreach(var like in Likes)
+                foreach(var like in LikesList)
                 {
                     UsersLikeList += DB.Users.Get(like.UserId).Name + "\n";
                 }
@@ -57,7 +77,7 @@ namespace JsonDemo.Models
             {
                 var connectedUser = (User)HttpContext.Current.Session["ConnectedUser"];
 
-                return Likes.Any(like => like.UserId == connectedUser.Id);
+                return LikesList.Any(like => like.UserId == connectedUser.Id);
             }
         }
 

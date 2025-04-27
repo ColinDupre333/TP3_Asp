@@ -9,7 +9,7 @@
 
     @foreach (var photo in Model)
     {
-        if (connectedUser.IsAdmin || photo.Shared)
+        if ((connectedUser.IsAdmin || photo.Shared) && photo != null)
         {
             <div class="photoLayout">
                 <div class="photoTitleContainer" title="@photo.Description">
@@ -27,7 +27,7 @@
 
                         @Helper.When(photo.CreationDate)
                         <div class="likesSummary">
-                            @photo.Likes.Count
+                            @photo.Likes
                             <i class="cmdIconSmall @(photo.LikedByUser ? "fa fa-thumbs-up" : "fa-regular fa-thumbs-up")"></i>
                         </div>
                     </div>

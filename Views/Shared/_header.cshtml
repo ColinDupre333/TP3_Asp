@@ -85,7 +85,6 @@
         case "edit":
             <div class="actionTitle"> @dataModel - Modification </div>
             <div class="menu-icon-layout">
-                <!--<i class="cmdIcon submitCmd fa fa-check" title="Soumettre"></i>-->
                 <i class="cmdIcon submitCmd fa fa-check" title="Soumettre" onclick="document.getElementById('editForm').submit();"></i>
                 <a href="/@controller/details/@Request.RequestContext.RouteData.Values["id"]" class="cmdIcon fa fa-times" title="Annuler"></a>
             </div>

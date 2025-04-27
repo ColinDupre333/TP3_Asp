@@ -5,6 +5,16 @@
     var connectedUser = connected ? (JsonDemo.Models.User)Session["ConnectedUser"] : null;
     bool admin = connected ? connectedUser.Admin : false;
     string dataModel = "";
+    bool isOwner = false;
+    if (connected && HttpContext.Current.Request.RequestContext.RouteData.Values.ContainsKey("id"))
+    {
+        int photoId;
+        if (int.TryParse(HttpContext.Current.Request.RequestContext.RouteData.Values["id"].ToString(), out photoId))
+        {
+            var photo = DB.Photos.Get(photoId);
+            isOwner = photo != null && photo.OwnerId == connectedUser.Id;
+        }
+    }
 }
 <div id="header">
     <a href="~/Photos/List"><img src="/favicon.ico" class="appLogo" alt="" title="Régistraire"></a>
@@ -62,9 +72,9 @@
             }
             break;
         case "details":
-            <div class="actionTitle"> @dataModel - Détails </div>
+            <div class="actionTitle"> @dataModel Détails </div>
             <div class="menu-icon-layout">
-                @if (connected && connectedUser.IsAdmin || connectedUser.Id == Model.ownerId)
+                @if (connected && connectedUser.IsAdmin || isOwner)
                 {
                     <a href="/@controller/Edit/@Request.RequestContext.RouteData.Values["id"]" class="cmdIcon fa fa-edit" title="Modifier"></a>
                     <i class="cmdIcon fa fa-trash"
@@ -83,7 +93,7 @@
             </div>
             break;
         case "edit":
-            <div class="actionTitle"> @dataModel - Modification </div>
+            <div class="actionTitle"> @dataModel Modification </div>
             <div class="menu-icon-layout">
                 <i class="cmdIcon submitCmd fa fa-check" title="Soumettre" onclick="document.getElementById('editForm').submit();"></i>
                 <a href="/@controller/details/@Request.RequestContext.RouteData.Values["id"]" class="cmdIcon fa fa-times" title="Annuler"></a>

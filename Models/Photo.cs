@@ -27,7 +27,7 @@ namespace JsonDemo.Models
                                                     // 
                                                     // compte des likes
         [ImageAsset(PhotosFolder, DefaultPhoto)]
-        public string Image { get; set; } = DefaultPhoto;        // Url relatif de l'image
+        public string Image { get; set; }        // Url relatif de l'image
 
         [JsonIgnore]
         public List<Like> Likes

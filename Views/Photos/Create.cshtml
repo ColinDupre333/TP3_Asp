@@ -30,7 +30,9 @@
 
         <fieldset>
             <legend>Photo</legend>
-            @Helper.ImageUploader("Image", Model.Image, "Cliquez glisser une photo")
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; border-radius: 6px; padding: 6px 6px 3px 0px;">
+                @Helper.ImageUploader("Image", Model.Image ?? "/App_Assets/Photos/No_Image.png", "Cliquez glisser une photo")
+            </div>
         </fieldset>
     </div>
 }

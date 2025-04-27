@@ -383,3 +383,7 @@ fieldset {
     background-position: center !important;
     background-repeat: no-repeat !important;
 }
+
+a {
+    text-decoration: none;
+}

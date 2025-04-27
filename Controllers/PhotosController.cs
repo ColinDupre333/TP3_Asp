@@ -144,9 +144,21 @@ namespace JsonDemo.Controllers
         }
         public ActionResult TogglePhotoLike(int id)
         {
+            //User connectedUser = (User)Session["ConnectedUser"];
+            //DB.Likes.ToogleLike(id, connectedUser.Id);
+            //return RedirectToAction("Details/" + id);
             User connectedUser = (User)Session["ConnectedUser"];
             DB.Likes.ToogleLike(id, connectedUser.Id);
-            return RedirectToAction("Details/" + id);
+
+            // Get the updated photo
+            Photo photo = DB.Photos.Get(id);
+
+            return Json(new
+            {
+                success = true,
+                likesCount = photo.Likes.Count,
+                usersLikeList = photo.UsersLikeList
+            });
         }
     }
 }

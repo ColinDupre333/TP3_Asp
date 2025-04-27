@@ -21,11 +21,45 @@
                 <span>@Model.CreationDate</span>
                 <div class="likesSummary">
                     @Model.Likes.Count
-
+                    <div style="font-size:1.1em" class="cmdIconSmall fa-regular fa-thumbs-up" id="addRemoveLikeCmd" data-photoid="@Model.Id" title="@Model.UsersLikeList"></div><!--a finir-->
                 </div>
-                <div style="font-size:1.1em" class="cmdIconSmall fa-regular fa-thumbs-up" id="addRemoveLikeCmd" photoid="@Model.Id" title="@Model.UsersLikeList"></div><!--a finir-->
+
             </div>
             <div class="photoDetailsDescription">@Model.Description</div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).on('click', '#addRemoveLikeCmd', function () {
+        var photoId = $(this).data('photoid');
+        var $icon = $(this);
+
+        $.ajax({
+            url: '@Url.Action("TogglePhotoLike", "PhotosController")',
+            type: 'POST',
+            data: { id: photoId },
+            success: function (response) {
+                if (response.success) {
+                    // Update the likes count
+                    $('#likesCount').text(response.likesCount);
+
+                    // Update the title with the list of users who liked the photo
+                    $icon.attr('title', response.usersLikeList);
+
+                    // Toggle the blue thumbs-up class
+                    if ($icon.hasClass('fa-regular')) {
+                        $icon.removeClass('fa-regular fa-thumbs-up').addClass('fa fa-thumbs-up');
+                    } else {
+                        $icon.removeClass('fa fa-thumbs-up').addClass('fa-regular fa-thumbs-up');
+                    }
+                } else {
+                    alert('An error occurred while toggling the like.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while processing your request.');
+            }
+        });
+    });
+</script>

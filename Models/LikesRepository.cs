@@ -16,19 +16,26 @@ namespace JsonDemo.Models
             if (like != null)
             {
                 BeginTransaction();
-                photo.Likes--;
-                DB.Photos.Update(photo);
                 Delete(like.Id);
                 EndTransaction();
+                //BeginTransaction();
+                //photo.Likes--;
+                //DB.Photos.Update(photo);
+                //Delete(like.Id);
+                //EndTransaction();
             }
             else
             {
                 BeginTransaction();
-                photo.Likes++;
-                DB.Photos.Update(photo);
                 like = new Like { PhotoId = photoId, UserId = userId };
                 Add(like);
                 EndTransaction();
+                //BeginTransaction();
+                //photo.Likes++;
+                //DB.Photos.Update(photo);
+                //like = new Like { PhotoId = photoId, UserId = userId };
+                //Add(like);
+                //EndTransaction();
             }
         }
         public void DeleteByPhotoId(int photoId)
@@ -41,7 +48,7 @@ namespace JsonDemo.Models
             List<Like> list = ToList().Where(l => l.UserId == userId).ToList();
             list.ForEach(l => {
                 Photo photo = DB.Photos.Get(l.PhotoId);
-                photo.Likes--;
+                //photo.Likes--;
                 DB.Photos.Update(photo);
                 Delete(l.Id);
             });

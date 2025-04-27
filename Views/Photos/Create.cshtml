@@ -30,9 +30,89 @@
 
         <fieldset>
             <legend>Photo</legend>
-            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; border-radius: 6px; padding: 6px 6px 3px 0px;">
-                @Helper.ImageUploader("Image", Model.Image ?? "/App_Assets/Photos/No_Image.png", "Cliquez glisser une photo")
+            <div class="form-group"
+                 id="Image_DropZone"
+                 style="display: flex; flex-direction: column; align-items: center; border-radius: 6px; padding: 6px 6px 3px 0px; border: 2px dashed #ccc;"
+                 ondrop="handleDrop(event)"
+                 ondragover="handleDragOver(event)">
+
+                <!-- Image prévisualisée -->
+                <img id="Image_UploadedImage"
+                     class="UploadedImage"
+                     src="@(!string.IsNullOrEmpty(Model.Image) ? Model.Image : "/App_Assets/Photos/No_Image.png")"
+                     alt="Cliquez glisser une photo"
+                     style="width: 100%; cursor: pointer; border-radius: 6px;" />
+
+                <!-- Champ de fichier caché -->
+                <input id="Image_FileInput"
+                       type="file"
+                       name="ImageFile"
+                       style="visibility: hidden; height: 0px; width: 0px; border: none; margin: 0px !important;"
+                       accept="image/jpeg,image/jpg,image/gif,image/png,image/bmp,image/webp,image/avif,image/svg" />
+
+                <!-- Champ caché pour stocker la valeur de l'image -->
+                <input type="hidden"
+                       id="Image"
+                       name="Image"
+                       value="@(!string.IsNullOrEmpty(Model.Image) ? Model.Image : "/App_Assets/Photos/No_Image.png")" />
             </div>
         </fieldset>
+
     </div>
+}
+
+@section Scripts
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fileInput = document.getElementById("Image_FileInput");
+            const previewImage = document.getElementById("Image_UploadedImage");
+            const hiddenInput = document.getElementById("Image");
+            const dropZone = document.getElementById("Image_DropZone");
+
+            // Lorsque l'utilisateur clique sur l'image, ouvrir le sélecteur de fichier
+            previewImage.addEventListener("click", function () {
+                fileInput.click();
+            });
+
+            // Prévisualiser l'image sélectionnée
+            fileInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result; // Mettre à jour la prévisualisation
+                        hiddenInput.value = e.target.result; // Mettre à jour la valeur de l'input caché
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Empêcher le comportement par défaut lors du glisser-déposer
+            dropZone.addEventListener("dragover", function (event) {
+                event.preventDefault();
+                dropZone.style.borderColor = "#00aaff"; // Changer la bordure pour indiquer que le drop est possible
+            });
+
+            dropZone.addEventListener("dragleave", function () {
+                dropZone.style.borderColor = "#ccc"; // Réinitialiser la bordure
+            });
+
+            // Gérer le dépôt de fichier
+            dropZone.addEventListener("drop", function (event) {
+                event.preventDefault();
+                dropZone.style.borderColor = "#ccc"; // Réinitialiser la bordure
+
+                const file = event.dataTransfer.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result; // Mettre à jour la prévisualisation
+                        hiddenInput.value = e.target.result; // Mettre à jour la valeur de l'input caché
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 }

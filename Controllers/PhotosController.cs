@@ -1,6 +1,7 @@
 ﻿using JsonDemo.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -85,14 +86,47 @@ namespace JsonDemo.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken()]
-        public ActionResult Create(Photo photo)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Photo photo, HttpPostedFileBase ImageFile)
         {
             User connectedUser = (User)Session["ConnectedUser"];
             photo.OwnerId = connectedUser.Id;
+
+            if (ImageFile != null && ImageFile.ContentLength > 0)
+            {
+                try
+                {
+                    // Générer un nom de fichier unique
+                    string fileName = Guid.NewGuid() + Path.GetExtension(ImageFile.FileName);
+
+                    // Chemin complet pour enregistrer l'image
+                    string path = Path.Combine(Server.MapPath("~/App_Assets/Photos"), fileName);
+
+                    // Enregistrer le fichier sur le serveur
+                    ImageFile.SaveAs(path);
+
+                    // Mettre à jour le chemin de l'image dans le modèle
+                    photo.Image = "/App_Assets/Photos/" + fileName;
+                }
+                catch (Exception ex)
+                {
+                    // Gérer les erreurs d'upload
+                    ModelState.AddModelError("", "Une erreur s'est produite lors de l'upload de l'image : " + ex.Message);
+                    return View(photo);
+                }
+            }
+            else
+            {
+                // Si aucune image n'est fournie, utiliser une image par défaut
+                photo.Image = "/App_Assets/Photos/No_Image.png";
+            }
+
+            // Ajouter la photo à la base de données
             DB.Photos.Add(photo);
+
             return RedirectToAction("List");
         }
+
         public ActionResult Edit(int id)
         {
             Photo photo = DB.Photos.Get(id);

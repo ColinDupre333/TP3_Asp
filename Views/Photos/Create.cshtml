@@ -4,8 +4,8 @@
     int ownerId = ((JsonDemo.Models.User)Session["ConnectedUser"]).Id;
 }
 
-@using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { @id = "createForm" }))
-{
+@using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { @id = "createForm", enctype = "multipart/form-data" }))
+{ 
     @Html.AntiForgeryToken()
     <input type="hidden" name="OwnerId" value=@ownerId />
 

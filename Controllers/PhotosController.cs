@@ -87,7 +87,9 @@ namespace JsonDemo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public ActionResult Create(Photo photo)
-        { 
+        {
+            User connectedUser = (User)Session["ConnectedUser"];
+            photo.OwnerId = connectedUser.Id;
             DB.Photos.Add(photo);
             return RedirectToAction("List");
         }

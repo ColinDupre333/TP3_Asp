@@ -78,7 +78,8 @@
         case "create":
             <div class="actionTitle"> @dataModel Ajout </div>
             <div class="menu-icon-layout">
-                <i class="cmdIcon submitCmd fa fa-check" title="Soumettre"></i>
+                <!--<i class="cmdIcon submitCmd fa fa-check" title="Soumettre"></i>-->
+                <i class="cmdIcon submitCmd fa fa-check" title="Soumettre" onclick="document.getElementById('createForm').submit();"></i>
                 <a href="/@controller/List" class="cmdIcon fa fa-times" title="Annuler"></a>
             </div>
             break;
